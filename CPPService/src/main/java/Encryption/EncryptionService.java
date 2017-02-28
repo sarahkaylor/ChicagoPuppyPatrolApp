@@ -16,10 +16,7 @@ public class EncryptionService implements IEncryptionService {
 		return null;
 	}
 
-	public KeyPair GenerateKeyPair() {
-		// TODO Auto-generated method stub
-		return null;
+	public KeyPair GenerateKeyPair() throws Exception {
+		return new RsaEncryption().GenerateKeyPair();
 	}
-
-	
 }

@@ -34,7 +34,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         final HttpServer server = startServer();
         new AuthenticationService().GenerateKeyPairIfItDoesnNotExist();
         System.out.println(String.format("Jersey app started with WADL available at "

@@ -29,7 +29,7 @@ public class AuthenticationServiceTest {
 	}
 	
 	@Test
-	public void TestCreateKeys() {
+	public void TestCreateKeys() throws Exception {
 		assertEquals(0, _dao.LoadServerKeyPairs().size());
 		
 		_service.GenerateKeyPairIfItDoesnNotExist();

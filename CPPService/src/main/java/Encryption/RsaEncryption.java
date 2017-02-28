@@ -27,15 +27,17 @@ public class RsaEncryption implements IAsymmetricEncryption {
 
 	@Override
 	public String Encrypt(String text) throws Exception {
-		byte[] data = _enc.doFinal(text.getBytes());
-		String encryptedText = new String(data);
+		byte[] textBytes = text.getBytes();
+		byte[] encryptedBytes = _enc.doFinal(textBytes);
+		String encryptedText = Base64Encode.encode(encryptedBytes);
 		return encryptedText;
 	}
 
 	@Override
 	public String Decrypt(String encryptedText) throws Exception {
-		byte[] data = _dec.doFinal(encryptedText.getBytes());
-		String decryptedText = new String(data);
+		byte[] textBytes = Base64Encode.decode(encryptedText);
+		byte[] decryptedBytes = _dec.doFinal(textBytes);
+		String decryptedText = new String(decryptedBytes);
 		return decryptedText;
 	}
 
@@ -44,21 +46,32 @@ public class RsaEncryption implements IAsymmetricEncryption {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance(Algorithm);
 		keyGen.initialize(KeySize);
 		KeyPair key = keyGen.generateKeyPair();
-		String privateKey = key.getPrivate().getFormat();
-		String publicKey = key.getPublic().getFormat();
+		
+		X509EncodedKeySpec publicSpec = new X509EncodedKeySpec(
+				key.getPublic().getEncoded());
+		PKCS8EncodedKeySpec privateSpec = new PKCS8EncodedKeySpec(
+				key.getPrivate().getEncoded());
+		
+		byte[] encodedPublic = publicSpec.getEncoded();
+		byte[] encodedPrivate = privateSpec.getEncoded();
+
+		
+		String publicKey = Base64Encode.encode(encodedPublic);
+		String privateKey = Base64Encode.encode(encodedPrivate);
+		
 		CPPModel.KeyPair pair = new CPPModel.KeyPair(publicKey, privateKey);
 		return pair;
 	}
 	
 	private static PrivateKey ReadPrivateKey(String string) throws Exception {
-		byte[] keyBytes = string.getBytes(); 
+		byte[] keyBytes = Base64Encode.decode(string);
 		PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 	    KeyFactory kf = KeyFactory.getInstance(Algorithm);
 	    return kf.generatePrivate(spec);
 	}
 	
 	private static PublicKey ReadPublicKey(String string) throws Exception {
-		byte[] keyBytes = string.getBytes();
+		byte[] keyBytes = Base64Encode.decode(string);
 		X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
 	    KeyFactory kf = KeyFactory.getInstance(Algorithm);
 	    return kf.generatePublic(spec);

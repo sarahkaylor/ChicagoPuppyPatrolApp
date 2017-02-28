@@ -24,7 +24,7 @@ public class AuthenticationService {
 		this(new AuthenticationDataAccess(), new MemberDataAccess(), new EncryptionService());
 	}
 	
-	public void GenerateKeyPairIfItDoesnNotExist() {
+	public void GenerateKeyPairIfItDoesnNotExist() throws Exception {
 		Collection<KeyPair> pairs = _dao.LoadServerKeyPairs();
 		if(pairs.size() == 0) {
 			KeyPair pair = _enc.GenerateKeyPair();
