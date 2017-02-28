@@ -34,15 +34,4 @@ public class RSATests {
 		
 		assertEquals(originalText, decryptedText);
 	}
-	
-	private String Print(byte[] bytes) {
-		StringBuilder buff = new StringBuilder();
-		for(int i = 0; i < bytes.length; i++) {
-			if(i > 0) {
-				buff.append(' ');
-			}
-			buff.append(bytes[i]);
-		}
-		return buff.toString();
-	}
 }

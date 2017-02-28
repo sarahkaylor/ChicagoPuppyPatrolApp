@@ -1,7 +1,5 @@
 package CPPModel;
 
-import java.util.Collection;
-
 import com.google.gson.Gson;
 
 public class AuthenticationTokenResponse extends SimpleResponse {
@@ -14,7 +12,7 @@ public class AuthenticationTokenResponse extends SimpleResponse {
 	}
 	
 	private AuthenticationTokenResponse(String message) {
-		super(false, message, "");
+		super(false, message, "", "");
 		Tokens = new AuthenticationTokenObject[0];
 	}
 	
@@ -24,7 +22,7 @@ public class AuthenticationTokenResponse extends SimpleResponse {
 	}
 	
 	private AuthenticationTokenResponse(AuthenticationTokenObject[] keys){
-		super(true, "", "");
+		super(true, "", "", "");
 		Tokens = keys;
 	}
 	

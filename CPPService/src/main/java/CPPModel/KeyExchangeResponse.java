@@ -1,7 +1,5 @@
 package CPPModel;
 
-import java.util.*;
-
 import com.google.gson.Gson;
 
 public class KeyExchangeResponse extends SimpleResponse {
@@ -19,12 +17,12 @@ public class KeyExchangeResponse extends SimpleResponse {
 	}
 	
 	private KeyExchangeResponse(KeyExchangeObject[] keys){
-		super(true, "", "");
+		super(true, "", "", "");
 		Keys = keys;
 	}
 	
 	private KeyExchangeResponse(String message) {
-		super(false, message, "");
+		super(false, message, "", "");
 		Keys = new KeyExchangeObject[0];
 	}
 	

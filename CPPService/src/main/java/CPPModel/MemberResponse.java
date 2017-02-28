@@ -19,12 +19,12 @@ public class MemberResponse extends SimpleResponse {
 	}
 	
 	private MemberResponse(boolean success, String message) {
-		super(success, message, "");
+		super(success, message, "", "");
 		Members = new MemberObject[0];
 	}
 	
 	private MemberResponse(Collection<MemberObject> members) {
-		super(true, "", "");
+		super(true, "", "", "");
 		Members = members.toArray(new MemberObject[0]);
 	}
 	

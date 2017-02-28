@@ -6,9 +6,9 @@ import CPPModel.MemberObject;
 
 public class EncryptionService implements IEncryptionService {
 
+	
 	public boolean MemberPasswordMatches(String privateKey, MemberObject member, String encryptedPassword) {
-		// TODO Auto-generated method stub
-		return false;
+		return member.EncryptedPassword.compareTo(encryptedPassword) == 0;
 	}
 
 	public AuthenticationTokenObject GenerateToken(String privateKey, MemberObject member, String encryptedPassword) {

@@ -6,8 +6,7 @@ import Encryption.*;
 import java.util.*;
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class AuthenticationServiceTest {
 	private IMemberDataAccess _memberDao;
@@ -42,5 +41,34 @@ public class AuthenticationServiceTest {
 		
 		assertFalse(key.PrivateKey.length() == 0);
 		assertFalse(key.PublicKey.length() == 0);
+	}
+	
+	@Test
+	public void TestGetServerPublicKey() throws Exception {
+		_service.GenerateKeyPairIfItDoesnNotExist();
+		
+		String key = _service.GetServerPublicKey();
+		
+		assertFalse(key.length() == 0);
+	}
+	
+	@Test
+	public void TestGetToken() throws Exception {
+		_service.GenerateKeyPairIfItDoesnNotExist();
+		
+		UUID id = UUID.randomUUID();
+		MemberObject member = new MemberObject("foo", new Date(), id, "pass", "key");
+		_memberDao.SaveOrUpdateMember(member);
+		
+		String tokenJson = _service.GetToken(id.toString(), "pass");
+		
+		AuthenticationTokenResponse token = AuthenticationTokenResponse.FromJson(tokenJson);
+		
+		assertEquals(token.toString(), true, token.Success);
+		assertEquals(1, token.Tokens.length);
+		
+		AuthenticationTokenObject tokenObj = token.Tokens[0];
+		
+		assertFalse(tokenObj.Token.length() == 0);
 	}
 }

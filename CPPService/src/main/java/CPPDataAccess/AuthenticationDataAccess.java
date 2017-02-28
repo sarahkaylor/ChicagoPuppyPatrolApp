@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.UUID;
 
 import CPPModel.AuthenticationTokenObject;
-import CPPModel.KeyExchangeObject;
 import CPPModel.KeyPair;
 
 public class AuthenticationDataAccess implements IAuthenticationDataAccess {
