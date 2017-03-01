@@ -1,13 +1,15 @@
 package CPPService;
-import Encryption.*;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import CPPModel.KeyPair;
+import Encryption.AesEncryption;
 
-public class RSATests {
+public class AesTests {
 
 	@Before
 	public void Setup() {
@@ -18,12 +20,12 @@ public class RSATests {
 	public void TearDown() {
 		
 	}
-	
+
 	@Test
 	public void TestRoundTrip() throws Exception {
-		KeyPair pair = new RsaEncryption().GenerateKeyPair();
+		KeyPair pair = new AesEncryption().GenerateKeyPair();
 		
-		RsaEncryption enc = new RsaEncryption();
+		AesEncryption enc = new AesEncryption();
 		enc.SetKey(pair);
 		
 		final String originalText = "hello world";
@@ -38,18 +40,14 @@ public class RSATests {
 	@Test
 	public void TestLargeMessage() throws Exception {
 
-		KeyPair pair = new RsaEncryption().GenerateKeyPair();
+		KeyPair pair = new AesEncryption().GenerateKeyPair();
 		
-		RsaEncryption enc = new RsaEncryption();
+		AesEncryption enc = new AesEncryption();
 		enc.SetKey(pair);
 		
 		StringBuilder buffer = new StringBuilder();
-		
-		int min = (int)' ';
-		int max = (int)'z';
-		
-		for(int i = 0; i < 1024*10; i++) {
-			char chr = (char)((i % (max-min)) + min);
+		for(int i = 0; i < 1024*1024; i++) {
+			char chr = (char)(i % 255);
 			buffer.append(chr);
 		}
 		
