@@ -5,24 +5,16 @@ import javax.crypto.*;
 import javax.crypto.spec.*;
 
 public class AesEncryption implements IEncryptionStrategy {
-
-	final String transformation = "AES/CBC/PKCS5Padding";
 	final String algorithm = "AES";
 	final int KeySize = 128;
 	private Cipher _enc;
 	private Cipher _dec;
-
-	public static final byte[] Salt = new byte[]{};
-	public static final int SaltCount = 20;
-	public static final char[] Password = new char[0];
 	
 	@Override
 	public CPPModel.KeyPair GenerateKeyPair() throws Exception {
 		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
 		generator.init(KeySize);
 		SecretKey key = generator.generateKey();
-		//SecretKeySpec spec = new SecretKeySpec(key.getEncoded(), algorithm);
-		//byte[] encodedKey = spec.getEncoded();
 		byte[] encodedKey = key.getEncoded();
 		String secretKey = Base64Encode.encode(encodedKey);
 		return new CPPModel.KeyPair("", secretKey);
