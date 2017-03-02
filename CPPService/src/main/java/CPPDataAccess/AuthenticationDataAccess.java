@@ -38,4 +38,16 @@ public class AuthenticationDataAccess implements IAuthenticationDataAccess {
 		
 	}
 
+	@Override
+	public KeyPair LoadAesSecretKey(UUID userId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void SaveAesSecretKey(UUID userId, KeyPair key) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

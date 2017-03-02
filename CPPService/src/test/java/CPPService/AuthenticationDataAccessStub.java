@@ -9,10 +9,12 @@ public class AuthenticationDataAccessStub implements IAuthenticationDataAccess {
 
 	private final Collection<KeyPair> _serverKeys;
 	private final Map<UUID, AuthenticationTokenObject> _tokens;
+	private final Map<UUID, KeyPair> _aesKeys;
 	
 	public AuthenticationDataAccessStub() {
 		_serverKeys = new ArrayList<KeyPair>();
 		_tokens = new HashMap<UUID, AuthenticationTokenObject>();
+		_aesKeys = new HashMap<UUID, KeyPair>();
 	}
 	
 	@Override
@@ -47,6 +49,22 @@ public class AuthenticationDataAccessStub implements IAuthenticationDataAccess {
 	public void SaveServerKeyPair(KeyPair pair) {
 		_serverKeys.clear();
 		_serverKeys.add(pair);
+	}
+
+	@Override
+	public KeyPair LoadAesSecretKey(UUID userId) throws Exception {
+		KeyPair pair;
+		if(_aesKeys.containsKey(userId)) {
+			pair = _aesKeys.get(userId);
+		} else {
+			throw new Exception("Could not find key");
+		}
+		return pair;
+	}
+
+	@Override
+	public void SaveAesSecretKey(UUID userId, KeyPair key) throws Exception {
+		_aesKeys.put(userId, key);
 	}
 
 }

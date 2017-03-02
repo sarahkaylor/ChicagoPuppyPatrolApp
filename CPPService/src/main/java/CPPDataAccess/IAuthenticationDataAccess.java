@@ -17,4 +17,7 @@ public interface IAuthenticationDataAccess {
 	public Collection<KeyPair> LoadServerKeyPairs();
 
 	public void SaveServerKeyPair(KeyPair pair);
+
+	public KeyPair LoadAesSecretKey(UUID userId) throws Exception;
+	public void SaveAesSecretKey(UUID userId, KeyPair key) throws Exception;
 }
